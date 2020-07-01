@@ -13,34 +13,77 @@ var PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Table Data
+// All reservations Data
 
+// var reserve = {};
+
+
+// Table Data
 var tables = {
-    "customerName": "MICHAEL",
-    "customerEmail": "jay@mail.com",
-    "customerID": "MJB",
-    "phoneNumber": "000-000-0000"
-}
+    customerName: "MICHAEL",
+    phoneNumber: "000-000-0000",
+    customerEmail: "jay@mail.com",
+    customerID: "MJB",
+};
+
 
 // Waitlist Data
+var waitlist = {
+    customerName: "MICHAEL",
+    phoneNumber: "000-000-0000",
+    customerEmail: "jay@mail.com",
+    customerID: "MJB",
+};
+
 
 // Basic route that sends the user first to the AJAX Page
 app.get("/", function(req, res) {
-    // res.send("Welcome to the Star Wars Page!")
+    // res.send("Welcome to the restaurant home page!")
     res.sendFile(path.join(__dirname, "home.html"));
 });
 
 app.get("/tables", function(req, res) {
-    // res.send("Welcome to the Star Wars Page!")
+    // res.send("Welcome to the tables page!")
     res.sendFile(path.join(__dirname, "tables.html"));
-  });
-
-app.get("/reserve", function(req, res) {
-// res.send("Welcome to the Star Wars Page!")
-res.sendFile(path.join(__dirname, "reserve.html"));
 });
 
+app.get("/reserve", function(req, res) {
+    // res.send("Welcome to the reserve page!")
+    res.sendFile(path.join(__dirname, "reserve.html"));
+});
+
+// Displays tables JSON
+app.get("/api/tables", function(req, res) {
+    return res.json(tables);
+});
+
+
+// Displays waitlist JSON
+app.get("/api/waitlist", function(req, res) {
+    return res.json(waitlist);
+});
+
+// Create New Reservations - takes in JSON input
+app.post("/api/tables", function(req, res) {
+    // req.body hosts is equal to the JSON post sent from the user
+    // This works because of our body parsing middleware
+    var newReservation = req.body;
   
+    console.log(newReservation);
+  
+    // We then add the json the user sent to the character array
+    if (tables.length < 5) {
+        tables.push(newReservation);
+    }
+
+    else {
+        waitlist.push(newReservation);
+    }
+  
+    // We then display the JSON to the users
+    res.json(newReservation);
+});
+
 
 // Starts the server to begin listening
 // =============================================================

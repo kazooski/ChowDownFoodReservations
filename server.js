@@ -3,7 +3,7 @@ var express = require("express");
 var path = require("path");
 
 
-//Sets up the Express App
+//Sets up the Express Apps
 var app = express();
 
 // Define a port to listen for incoming requests

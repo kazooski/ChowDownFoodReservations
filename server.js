@@ -3,7 +3,7 @@ var express = require("express");
 var path = require("path");
 
 
-//Sets up the Express App
+//Sets up the Express Apps
 var app = express();
 
 // Define a port to listen for incoming requests
@@ -13,12 +13,34 @@ var PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Table Data
+
+var tables = {
+    "customerName": "MICHAEL",
+    "customerEmail": "jay@mail.com",
+    "customerID": "MJB",
+    "phoneNumber": "000-000-0000"
+}
+
+// Waitlist Data
 
 // Basic route that sends the user first to the AJAX Page
 app.get("/", function(req, res) {
     // res.send("Welcome to the Star Wars Page!")
     res.sendFile(path.join(__dirname, "home.html"));
 });
+
+app.get("/tables", function(req, res) {
+    // res.send("Welcome to the Star Wars Page!")
+    res.sendFile(path.join(__dirname, "tables.html"));
+  });
+
+app.get("/reserve", function(req, res) {
+// res.send("Welcome to the Star Wars Page!")
+res.sendFile(path.join(__dirname, "reserve.html"));
+});
+
+  
 
 // Starts the server to begin listening
 // =============================================================
